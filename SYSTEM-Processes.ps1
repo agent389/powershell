@@ -1,0 +1,1 @@
+get-adcomputer -filter * | select -expand name | foreach -parallel {get-wmiobject -computername $_ win32_process | select-object Name,@{n='Owner'; e={$_.getowner().user}},@{n='host'; e={$_}}} | Export-csv c:\users\bccsadministrator\desktop\output.csv
